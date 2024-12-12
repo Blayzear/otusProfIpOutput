@@ -5,9 +5,6 @@
 #include <vector>
 #include <list>
 
-/// <summary>
-/// Template func that prints integers via byte shift
-/// </summary>
 template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
 void print_ip(T n) {
 	for (size_t i = 1; i < sizeof(T); i++)
@@ -25,9 +22,6 @@ void operator>>(T& lhs, T& rhs)
 	lhs >> rhs;
 }
 
-/// <summary>
-/// Template func that prints string in its C-form
-/// </summary>
 template<typename T, typename std::enable_if<std::is_same<T, std::string>::value, bool>::type = true>
 void print_ip(T s) {
 	std::cout << s.c_str();
@@ -40,9 +34,6 @@ struct has_begin : std::false_type {};
 template <typename T>
 struct has_begin < T, std::void_t<decltype(std::declval<T>().begin())>> : std::true_type {};
 
-/// <summary>
-/// Template func that checks whether passed argument has an begin() and treats passed arg as container
-/// </summary>
 template<typename T, typename std::enable_if<has_begin<T>::value, int>::type = 0,
 	typename std::enable_if<!std::is_same<T, std::string>::value, bool>::type = true>
 void print_ip(T x)
